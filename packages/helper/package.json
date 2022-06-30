@@ -1,0 +1,27 @@
+{
+  "name": "@hengshuai/helper",
+  "version": "0.1.0",
+  "description": "",
+  "unpkg": "dist/@hengshuai/helper.umd.js",
+  "jsdelivr": "dist/@hengshuai/helper.umd.js",
+  "main": "dist/@hengshuai/helper.common.js",
+  "module": "dist/@hengshuai/helper.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "helper:dev": "rollup -w -c scripts/config.js --environment TARGET:es"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^2.75.7",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-serve": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.32.1"
+  }
+}

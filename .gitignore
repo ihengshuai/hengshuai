@@ -1,0 +1,11 @@
+# files
+dist
+node_modules
+.DS_Store
+
+# editor
+.idea
+.vscode
+
+# logs
+*.log
