@@ -21,13 +21,15 @@ importers:
       rollup-plugin-replace: ^2.2.0
       rollup-plugin-serve: ^2.0.0
       rollup-plugin-typescript2: ^0.32.1
+      typescript: ^4.7.4
     devDependencies:
       rollup: 2.75.7
       rollup-plugin-commonjs: 10.1.0_rollup@2.75.7
       rollup-plugin-node-resolve: 5.2.0_rollup@2.75.7
       rollup-plugin-replace: 2.2.0
       rollup-plugin-serve: 2.0.0
-      rollup-plugin-typescript2: 0.32.1_rollup@2.75.7
+      rollup-plugin-typescript2: 0.32.1_okefoyb4o5sittgqayreuhurei
+      typescript: 4.7.4
 
 packages:
 
@@ -739,7 +741,7 @@ packages:
       opener: 1.5.2
     dev: true
 
-  /rollup-plugin-typescript2/0.32.1_rollup@2.75.7:
+  /rollup-plugin-typescript2/0.32.1_okefoyb4o5sittgqayreuhurei:
     resolution: {integrity: sha512-RanO8bp1WbeMv0bVlgcbsFNCn+Y3rX7wF97SQLDxf0fMLsg0B/QFF005t4AsGUcDgF3aKJHoqt4JF2xVaABeKw==}
     peerDependencies:
       rollup: '>=1.26.3'
@@ -751,6 +753,7 @@ packages:
       resolve: 1.22.1
       rollup: 2.75.7
       tslib: 2.4.0
+      typescript: 4.7.4
     dev: true
 
   /rollup-pluginutils/2.8.2:
@@ -836,7 +839,6 @@ packages:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: false
 
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}

@@ -40,7 +40,8 @@
       // 给源码里的装饰器声明加上设计类型元数据。
       "emitDecoratorMetadata": true,
       // 启用实验性的ES装饰器。
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      "rootDir": "../../packages/helper",
       // 有未使用的变量时，抛出错误。
       // "noUnusedLocals": true,
       // 有未使用的参数时，抛出错误。
