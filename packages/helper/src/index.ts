@@ -1,7 +1,10 @@
-export default 2
+export * from './injectable';
+export * from './storage';
+export * from './general';
+export * from './buffer';
 
-const age = 1
+export default 2;
 
-export {
-  age
-}
+const age = 1;
+
+export { age };

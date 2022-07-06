@@ -1,13 +1,16 @@
-import "reflect-metadata"
+import 'reflect-metadata';
 
 export function throttle(cb: Function, delay: number) {
-  let timeout: number | undefined;
+  let timeout: any;
+
   return function () {
     if (timeout) {
       return;
     }
+
     timeout = setTimeout(() => {
       cb();
+
       timeout = undefined;
     }, delay);
   };
