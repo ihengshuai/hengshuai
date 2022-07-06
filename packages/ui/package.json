@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "typescript": "^4.7.4"
-  }
+  "license": "ISC"
 }
