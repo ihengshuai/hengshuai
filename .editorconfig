@@ -14,3 +14,5 @@ trim_trailing_whitespace = false
 
 [*.yml]
 trim_trailing_whitespace = false
+[.husky]
+insert_final_newline = false

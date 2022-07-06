@@ -1,6 +1,7 @@
 dist
 coverage
 test
+.husky
 node_modules
 
 # Ignore all HTML files:
