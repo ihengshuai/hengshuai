@@ -12,6 +12,10 @@
     "vuepress"
   ],
   "scripts": {
+    "site:dev": "pnpm --filter docs dev",
+    "site:build": "pnpm --filter docs build",
+    "helper:dev": "pnpm --filter helper dev",
+    "helper:build": "pnpm --filter helper build",
     "lint": "npm run lint:script && npm run lint:style",
     "lint:script": "eslint --ext .js,.jsx,.ts,.tsx,.vue --fix ./",
     "lint:style": "stylelint --fix \"./**/*.{css,scss}\"",
@@ -83,6 +87,13 @@
     "vite-plugin-eslint": "^1.6.1",
     "vue-eslint-parser": "^9.0.3",
     "vue-tsc": "^0.38.2"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignore": [
+        "webpack"
+      ]
+    }
   },
   "engines": {
     "node": ">=14.19.2"

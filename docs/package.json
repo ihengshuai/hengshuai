@@ -1,0 +1,36 @@
+{
+  "name": "@hengshuai/docs",
+  "version": "1.0.0",
+  "description": "A JavaScript, UI library documentation listing site",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "keywords": [
+    "monorepo",
+    "vue-ui",
+    "tool library",
+    "typescript",
+    "vue",
+    "vuepress"
+  ],
+  "author": {
+    "name": "Peachick",
+    "email": "wsm_1105@163.com",
+    "url": "https://github.com/hengshuai"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Peachick/hengshuai.git"
+  },
+  "homepage": "https://github.com/Peachick/hengshuai",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^3.2.36",
+    "vuepress": "2.0.0-beta.48"
+  },
+  "devDependencies": {
+    "@vuepress/client": "^2.0.0-beta.47"
+  }
+}
