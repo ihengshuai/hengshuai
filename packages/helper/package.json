@@ -15,8 +15,18 @@
     "dev": "pnpm clear && rollup -w -c scripts/config.js --environment TARGET:es",
     "build": "pnpm clear && rollup -c scripts/build.js"
   },
+  "author": {
+    "name": "Peachick",
+    "email": "wsm_1105@163.com",
+    "url": "https://github.com/peachick"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Peachick/hengshuai.git"
+  },
+  "homepage": "https://github.com/Peachick/hengshuai/packages/helper",
   "keywords": [],
-  "author": "",
+  "private": false,
   "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
