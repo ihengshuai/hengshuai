@@ -4,7 +4,7 @@
 待部署...
 
 ## 通过的JavaScript工具
-[查看文档](/packages/helper)
+[查看文档](/Peachick/hengshuai/tree/main/packages/helper)
 
 ## UI库
-[查看文档](/packages/ui)
+[查看文档](/Peachick/hengshuai/tree/main/packages/ui)
