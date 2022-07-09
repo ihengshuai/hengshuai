@@ -91,7 +91,7 @@ const typeDecoratorFactory =
     targetValidators[idx] = validator;
     validatorStorage[prop] = targetValidators;
   };
-const isString = typeDecoratorFactory((str: any) => typeof str === "string");
+const isString = typeDecoratorFactory((str: any) => typeof str === 'string');
 // 源验证器或自定义参数验证器
 function validator(
   target: object,
@@ -167,7 +167,7 @@ class LoginPage {
   }
 
   @toPrivate
-  private _PORT: number = 3306;
+  private _PORT = 3306;
   get PORT() {
     return this._PORT;
   }
