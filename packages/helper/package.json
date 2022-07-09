@@ -1,7 +1,7 @@
 {
   "name": "@hengshuai/helper",
   "version": "0.1.0",
-  "description": "",
+  "description": "A repository for tools to assist in development",
   "unpkg": "dist/index.umd.js",
   "jsdelivr": "dist/index.umd.js",
   "main": "dist/index.cjs.js",
@@ -24,12 +24,18 @@
     "type": "git",
     "url": "git+https://github.com/Peachick/hengshuai.git"
   },
-  "homepage": "https://github.com/Peachick/hengshuai/packages/helper",
+  "homepage": "https://github.com/Peachick/hengshuai/tree/main/packages/helper",
   "keywords": [],
   "private": false,
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
+    "babel-plugin-transform-eval": "^6.22.0",
     "rollup": "^2.75.7",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-livereload": "^2.0.5",
@@ -38,5 +44,9 @@
     "rollup-plugin-serve": "^2.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.32.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.18.6",
+    "babel": "^6.23.0"
   }
 }

@@ -13,7 +13,7 @@ const scheme = pkg.name.replace(/(?:^|-|\.)(.)/g, ($0, $1) => $1.toUpperCase());
 
 const banner = `/*!
  * ${pkg.name} v${pkg.version}
- * (c) 2014-${new Date().getFullYear()} Peachick
+ * (c) 2014-${new Date().getFullYear()} ${pkg.author.name}
  * Released under the MIT License.
  */`;
 

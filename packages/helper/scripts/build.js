@@ -1,5 +1,6 @@
 import { builds, getConfig } from './config';
 import { terser } from 'rollup-plugin-terser';
+import babel from '@rollup/plugin-babel'
 
 const buildConfigs = [];
 
@@ -9,6 +10,10 @@ Object.keys(builds).forEach((type) => {
     output: { file },
     plugins,
   } = config;
+  config.plugins.push(babel({
+    babelHelpers: 'bundled',
+    exclude: 'node_modules/**',
+  }));
   const minConfig = {
     ...config,
     output: {
