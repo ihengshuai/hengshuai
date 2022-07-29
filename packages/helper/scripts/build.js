@@ -6,6 +6,7 @@ const buildConfigs = [];
 
 Object.keys(builds).forEach((type) => {
   const config = getConfig(type);
+  config.output.sourcemap = true;
   const {
     output: { file },
     plugins,
