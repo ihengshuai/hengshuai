@@ -2,13 +2,19 @@
  * 浏览器存储
  */
 
-import { isObject } from '../utils';
+import { isEmty, isNumber } from '../utils';
 
 enum STORAGE_TYPE {
   LOCAL = 'localStorage',
   SESSION = 'sessionStorage',
 }
 
+enum IExpireType {
+  NERVER = '-1',
+  ALWAYS = '1',
+}
+
+type IExpire = IExpireType | number;
 type IField = { val: any; exp: any };
 type StorageRecord = Record<string, IField | Record<string, IField>>;
 
@@ -43,21 +49,34 @@ class LocalStorage extends IStorage {
     if (!k && !this.__field) {
       return storage || null;
     } else if (!k || !this.__field) {
-      return storage[this.__field] || storage[k] || null;
+      const store = storage[this.__field] || storage[k] || {};
+      if (this.isExpire(store?.exp)) {
+        this.remove(k || this.__field);
+        return null;
+      }
+      return store?.val || store || null;
     }
     const field = storage[this.__field];
     const parsedField = (field || {}) as StorageRecord;
-    return parsedField?.[k]?.val;
+    if (this.isExpire(parsedField?.[k]?.exp)) {
+      this.remove(k);
+      return null;
+    }
+    return parsedField?.[k]?.val || null;
   }
 
-  set(k: string | number, v: any = null) {
+  set(k: string | number, v: any = null, expire: IExpire = IExpireType.NERVER) {
+    if (!k) return this;
     const storage = this.getStorage();
+    if (typeof expire === 'number') {
+      expire = +new Date() + expire;
+    }
     if (!this.__field) {
       storage.setItem(
         k as unknown as any,
         JSON.stringify({
           val: v,
-          exp: +new Date() + 1000 * 60 * 60 * 24,
+          exp: expire,
         }),
       );
       return this;
@@ -65,7 +84,7 @@ class LocalStorage extends IStorage {
     const collection = JSON.parse(storage[this.__field] || '{}');
     collection[k] = {
       val: v,
-      exp: +new Date() + 1000 * 60 * 60 * 24,
+      exp: expire,
     };
     storage.setItem(this.__field, JSON.stringify(collection));
     return this;
@@ -88,10 +107,44 @@ class LocalStorage extends IStorage {
     const storage = this.parseStorage();
     if (!this.__field) {
       const { val, exp } = storage[k] || {};
-      return !!val;
+      if (val) {
+        const isExpire = this.isExpire(exp);
+        if (isExpire) {
+          this.remove(k);
+        }
+        return !isExpire;
+      }
+      return false;
     }
     const { val, exp } = (storage?.[this.__field] as StorageRecord)?.[k] || {};
-    return !!val;
+    if (val) {
+      const isExpire = this.isExpire(exp);
+      if (isExpire) {
+        this.remove(k);
+      }
+      return !isExpire;
+    }
+    return false;
+  }
+
+  expire(k?: string) {
+    const storage = this.parseStorage();
+    if (!k && !this.__field) return true;
+    if (!k || !this.__field) {
+      const { exp } = (storage?.[k] || storage?.[this.__field]) as IField;
+      return this.isExpire(exp);
+    }
+    const { exp } = (storage?.[this.__field] as StorageRecord)?.[k] || {};
+    return this.isExpire(exp);
+  }
+
+  private isExpire(exp: IExpire) {
+    if (isEmty(exp)) return false;
+    if (exp === IExpireType.NERVER) return false;
+    if (exp === IExpireType.ALWAYS) return true;
+    if (!isNumber(exp)) return true;
+    if (+new Date() > exp) return true;
+    return false;
   }
 
   clear(): this {
