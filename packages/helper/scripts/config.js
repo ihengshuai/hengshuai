@@ -49,6 +49,8 @@ export function getConfig(name) {
     plugins: [
       replace({
         __VERSION__: pkg.version,
+        __isBrowser__: true,
+        __isDev__: process.env.NODE_ENV !== 'production',
       }),
       json(),
       commonjs(),

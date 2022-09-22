@@ -13,18 +13,18 @@
   "scripts": {
     "clear": "rimraf dist",
     "dev": "pnpm clear && rollup -w -c scripts/config.js --environment TARGET:es",
-    "build": "pnpm clear && rollup -c scripts/build.js"
+    "build": "pnpm clear && rollup -c scripts/build.js --environment NODE_ENV:production"
   },
   "author": {
-    "name": "Peachick",
+    "name": "ihengshuai",
     "email": "wsm_1105@163.com",
-    "url": "https://github.com/peachick"
+    "url": "https://github.com/ihengshuai"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Peachick/hengshuai.git"
+    "url": "git+https://github.com/ihengshuai/hengshuai.git"
   },
-  "homepage": "https://github.com/Peachick/hengshuai/tree/main/packages/helper",
+  "homepage": "https://github.com/ihengshuai/hengshuai/tree/main/packages/helper",
   "keywords": [],
   "private": false,
   "license": "ISC",
