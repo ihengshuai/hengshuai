@@ -2,79 +2,141 @@
  * 浏览器存储
  */
 
-type StorageType = 'local' | 'session';
-class Storage {
-  /**
-   * storage类型
-   */
-  private _storageType: StorageType = 'local';
-  /**
-   * 设置storage类型栈
-   */
-  private _storageTypeStack: StorageType[] = ['local'];
-  private static _instance: Storage;
+import { isObject } from '../utils';
 
-  public static get instance(): Storage {
-    if (!this._instance) {
-      this._instance = new Storage();
+enum STORAGE_TYPE {
+  LOCAL = 'localStorage',
+  SESSION = 'sessionStorage',
+}
+
+type IField = { val: any; exp: any };
+type StorageRecord = Record<string, IField | Record<string, IField>>;
+
+abstract class IStorage {
+  protected __field: string;
+  abstract field(k: string): this;
+  abstract get(k: string | number): any;
+  abstract set(k: string | number, v: any): this;
+  abstract clear(): this;
+  abstract remove(k: string): this;
+  abstract has(k: string): boolean;
+  get kind(): typeof StorageManager {
+    return StorageManager;
+  }
+}
+
+class LocalStorage extends IStorage {
+  protected __type: STORAGE_TYPE.LOCAL | STORAGE_TYPE.SESSION;
+
+  constructor() {
+    super();
+    this.__type = STORAGE_TYPE.LOCAL;
+  }
+
+  field(k?: string): this {
+    this.__field = k;
+    return this;
+  }
+
+  get(k?: string) {
+    const storage = this.parseStorage();
+    if (!k && !this.__field) {
+      return storage || null;
+    } else if (!k || !this.__field) {
+      return storage[this.__field] || storage[k] || null;
     }
-    return this._instance;
+    const field = storage[this.__field];
+    const parsedField = (field || {}) as StorageRecord;
+    return parsedField?.[k]?.val;
   }
 
-  public set(key: string, val: any): Storage {
+  set(k: string | number, v: any = null) {
     const storage = this.getStorage();
-    storage.setItem(key, JSON.stringify(val));
-    return this;
-  }
-
-  public get(key: string): any {
-    const storage = this.getStorage();
-    const val = storage.getItem(key);
-    if (val) {
-      return JSON.parse(val);
+    if (!this.__field) {
+      storage.setItem(
+        k as unknown as any,
+        JSON.stringify({
+          val: v,
+          exp: +new Date() + 1000 * 60 * 60 * 24,
+        }),
+      );
+      return this;
     }
-    return null;
-  }
-
-  public has(key: string): boolean {
-    const storage = this.getStorage();
-    return storage.getItem(key) !== null;
-  }
-
-  public delete(key: string): Storage {
-    const storage = this.getStorage();
-    storage.removeItem(key);
+    const collection = JSON.parse(storage[this.__field] || '{}');
+    collection[k] = {
+      val: v,
+      exp: +new Date() + 1000 * 60 * 60 * 24,
+    };
+    storage.setItem(this.__field, JSON.stringify(collection));
     return this;
   }
 
-  public use(type: StorageType): Storage {
-    this._storageTypeStack.push(type);
-    this._storageType = type;
-    return this;
-  }
-
-  public back(): Storage {
-    if (this._storageTypeStack.length > 1) {
-      this._storageType = this._storageTypeStack.pop();
+  remove(k?: string) {
+    const storage = this.getStorage();
+    if (!k || !this.__field) {
+      storage.removeItem(this.__field || k);
+    } else {
+      const collection = JSON.parse(storage[this.__field] || null);
+      delete collection[k];
+      storage.setItem(this.__field, JSON.stringify(collection));
     }
     return this;
   }
 
-  public clear(): Storage {
-    const storage = this.getStorage();
-    storage.clear();
+  has(k: string) {
+    if (!k) return false;
+    const storage = this.parseStorage();
+    if (!this.__field) {
+      const { val, exp } = storage[k] || {};
+      return !!val;
+    }
+    const { val, exp } = (storage?.[this.__field] as StorageRecord)?.[k] || {};
+    return !!val;
+  }
+
+  clear(): this {
+    this.getStorage()?.clear();
     return this;
   }
 
-  private getStorage(): globalThis.Storage {
-    if (!!localStorage || !!sessionStorage)
-      throw new Error('浏览器不支持localStorage或sessionStorage');
+  get end(): this {
+    this.__field = undefined;
+    return this;
+  }
 
-    if (this._storageType === 'local') {
-      return localStorage;
-    }
+  private parseStorage(): StorageRecord {
+    const storage = this.getStorage();
+    return Object.keys(storage).reduce((p, k) => {
+      p[k] = JSON.parse(storage[k]);
+      return p;
+    }, {} as StorageRecord);
+  }
+
+  private getStorage(): Storage {
+    if (this.__type === STORAGE_TYPE.LOCAL) return localStorage;
     return sessionStorage;
   }
 }
 
-export const storage = Storage.instance;
+class SessionStorage extends LocalStorage {
+  constructor() {
+    super();
+    this.__type = STORAGE_TYPE.SESSION;
+  }
+}
+
+export class StorageManager {
+  private static __type: STORAGE_TYPE;
+
+  public static get local() {
+    this.__type = STORAGE_TYPE.LOCAL;
+    return new LocalStorage();
+  }
+
+  public static get session() {
+    this.__type = STORAGE_TYPE.SESSION;
+    return new SessionStorage();
+  }
+}
+
+window.store = StorageManager;
