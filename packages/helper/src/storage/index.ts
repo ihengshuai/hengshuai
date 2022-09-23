@@ -2,7 +2,7 @@
  * 浏览器存储
  */
 
-import { isEmty, isNumber } from '../utils';
+import { hasProperty, isEmtry, isNumber } from '@/utils';
 
 enum STORAGE_TYPE {
   LOCAL = 'localStorage',
@@ -21,8 +21,8 @@ type StorageRecord = Record<string, IField | Record<string, IField>>;
 abstract class IStorage {
   protected __field: string;
   abstract field(k: string): this;
-  abstract get(k: string | number): any;
-  abstract set(k: string | number, v: any): this;
+  abstract get(k: any): any;
+  abstract set(k: any, v: any): this;
   abstract clear(): this;
   abstract remove(k: string): this;
   abstract has(k: string): boolean;
@@ -44,11 +44,12 @@ class LocalStorage extends IStorage {
     return this;
   }
 
-  get(k?: string) {
+  get(k?: any) {
     const storage = this.parseStorage();
     if (!k && !this.__field) {
       return storage || null;
     } else if (!k || !this.__field) {
+      if (!hasProperty(storage, k || this.__field)) return null;
       const store = storage[this.__field] || storage[k] || {};
       if (this.isExpire(store?.exp)) {
         this.remove(k || this.__field);
@@ -65,7 +66,7 @@ class LocalStorage extends IStorage {
     return parsedField?.[k]?.val || null;
   }
 
-  set(k: string | number, v: any = null, expire: IExpire = IExpireType.NERVER) {
+  set(k: any, v: any = null, expire: IExpire = IExpireType.NERVER) {
     if (!k) return this;
     const storage = this.getStorage();
     if (typeof expire === 'number') {
@@ -139,7 +140,7 @@ class LocalStorage extends IStorage {
   }
 
   private isExpire(exp: IExpire) {
-    if (isEmty(exp)) return false;
+    if (isEmtry(exp)) return false;
     if (exp === IExpireType.NERVER) return false;
     if (exp === IExpireType.ALWAYS) return true;
     if (!isNumber(exp)) return true;
@@ -160,7 +161,13 @@ class LocalStorage extends IStorage {
   private parseStorage(): StorageRecord {
     const storage = this.getStorage();
     return Object.keys(storage).reduce((p, k) => {
-      p[k] = JSON.parse(storage[k]);
+      let val: any;
+      try {
+        val = JSON.parse(storage[k]);
+      } catch (err) {
+        val = storage[k];
+      }
+      p[k] = val;
       return p;
     }, {} as StorageRecord);
   }
@@ -182,11 +189,13 @@ export class StorageManager {
   private static __type: STORAGE_TYPE;
 
   public static get local() {
+    if (!__isBrowser__) return;
     this.__type = STORAGE_TYPE.LOCAL;
     return new LocalStorage();
   }
 
   public static get session() {
+    if (!__isBrowser__) return;
     this.__type = STORAGE_TYPE.SESSION;
     return new SessionStorage();
   }

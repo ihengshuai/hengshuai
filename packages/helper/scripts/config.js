@@ -6,7 +6,9 @@ import typescript from 'rollup-plugin-typescript2';
 import serve from 'rollup-plugin-serve';
 import json from '@rollup/plugin-json';
 import livereload from 'rollup-plugin-livereload';
+import alias from '@rollup/plugin-alias';
 import pkg from '../package.json';
+import { cwd } from 'process';
 
 const resolvePath = (...dir) => path.resolve(__dirname, '../', ...dir);
 const scheme = pkg.name.replace(/(?:^|-|\.)(.)/g, ($0, $1) => $1.toUpperCase());
@@ -47,6 +49,9 @@ export function getConfig(name) {
     input: opts.input,
     external: opts.external,
     plugins: [
+      alias({
+        entries: [{ find: '@', replacement: path.join(cwd(), '/src') }],
+      }),
       replace({
         __VERSION__: pkg.version,
         __isBrowser__: true,

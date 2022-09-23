@@ -41,7 +41,11 @@
     "emitDecoratorMetadata": true,
     // 启用实验性的ES装饰器。
     "experimentalDecorators": true,
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
     // 有未使用的变量时，抛出错误。
     // "noUnusedLocals": true,
     // 有未使用的参数时，抛出错误。

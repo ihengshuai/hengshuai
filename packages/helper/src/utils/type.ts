@@ -94,7 +94,7 @@ export function isExpectType(type: any, expectType: string): boolean {
   return getTypeString(type) === expectType;
 }
 
-export function isEmty(type: any): boolean {
+export function isEmtry(type: any): boolean {
   return type === undefined || type === null || type === '';
 }
 
@@ -118,4 +118,9 @@ export function getClassType(type: any): Function {
       ? type.prototype
       : Object.getPrototypeOf(type).constructor;
   }
+}
+
+export function hasProperty(target: any, k: any) {
+  if (!isObject(target)) return false;
+  return Object.prototype.hasOwnProperty.call(target, k);
 }
