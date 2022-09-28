@@ -102,7 +102,7 @@ export function isEmtryObject(type: any): boolean {
   return isObject(type) && Object.keys(type).length === 0;
 }
 
-export function getClassType(type: any): Function {
+export function getClassType(type: any): Function | null | undefined {
   if (isNull(type)) {
     return null;
   } else if (isUndefined(type)) {
