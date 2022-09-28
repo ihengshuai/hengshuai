@@ -1,4 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
+
 import {
   isString,
   isBoolean,
@@ -27,6 +28,7 @@ import {
   isEmtry,
   getClassType,
   getTypeString,
+  hasProperty,
 } from '../../src/utils/type';
 
 async function asyncFun() {
@@ -35,6 +37,14 @@ async function asyncFun() {
 
 function fetchData() {
   return asyncFun();
+}
+
+class User {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
 describe('type util test', () => {
@@ -116,12 +126,6 @@ describe('type util test', () => {
     expect(isClass(new Object())).toBeFalsy();
 
     // isInstanceOf
-    class User {
-      name: string;
-      constructor(name: string) {
-        this.name = name;
-      }
-    }
     expect(isInstanceOf(User, new User('ming'))).toBeTruthy();
     expect(isInstanceOf(User, { name: 'ming' })).toBeFalsy();
 
@@ -156,7 +160,12 @@ describe('type util test', () => {
     expect(getClassType(undefined)).toBe(undefined);
     expect(getClassType('')).toBe(String);
     expect(getClassType(1)).toBe(Number);
+    expect(getClassType(true)).toBe(Boolean);
     expect(getClassType([])).toBe(Array);
+    expect(getClassType(new User('jest'))).toBe(User);
+    expect(getClassType(User)).toBe(User);
+    expect(getClassType(Symbol('jest'))).toBe(Symbol);
+    expect(getClassType(new Error('error'))).toBe(Error);
     expect(getClassType(new Date())).toBe(Date);
     expect(getClassType({})).toBe(Object);
   });
@@ -165,5 +174,12 @@ describe('type util test', () => {
     expect(getTypeString(null)).toBe('null');
     expect(getTypeString('')).toBe('string');
     expect(getTypeString(true)).toBe('boolean');
+  });
+
+  test('test hasProperty method', () => {
+    const proto = Object.create({ name: 'helper' });
+    expect(hasProperty(proto, 'name')).toBeFalsy();
+    expect(hasProperty({ name: 'jest' }, 'name')).toBeTruthy();
+    expect(hasProperty('', 'name')).toBeFalsy();
   });
 });

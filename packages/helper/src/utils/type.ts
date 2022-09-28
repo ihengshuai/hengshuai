@@ -114,8 +114,8 @@ export function getClassType(type: any): Function | null | undefined {
   } else if (isString(type)) {
     return String;
   } else {
-    return type.prototype
-      ? type.prototype
+    return type?.prototype
+      ? type.prototype?.constructor
       : Object.getPrototypeOf(type).constructor;
   }
 }
