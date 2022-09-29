@@ -41,30 +41,31 @@ export class LocalStorage extends IStorage {
   set(k: any, v: any = null, expire: IExpire = IExpireType.NERVER) {
     if (!k) return this;
     const storage = this.getStorage();
-    if (
-      isNumber(expire) &&
-      expire !== IExpireType.NERVER &&
-      expire !== IExpireType.ALWAYS
-    ) {
-      expire = +new Date() + expire;
-    }
-    if (!this.__field) {
-      storage.setItem(
-        k as unknown as any,
-        JSON.stringify({
-          val: v,
-          exp: expire,
-        }),
-      );
+    try {
+      expire = Number(expire);
+      if (expire !== IExpireType.NERVER && expire !== IExpireType.ALWAYS) {
+        expire = +new Date() + expire;
+      }
+      if (!this.__field) {
+        storage.setItem(
+          k as unknown as any,
+          JSON.stringify({
+            val: v,
+            exp: expire,
+          }),
+        );
+        return this;
+      }
+      const collection = JSON.parse(storage[this.__field] || '{}');
+      collection[k] = {
+        val: v,
+        exp: expire,
+      };
+      storage.setItem(this.__field, JSON.stringify(collection));
+      return this;
+    } catch (err) {
       return this;
     }
-    const collection = JSON.parse(storage[this.__field] || '{}');
-    collection[k] = {
-      val: v,
-      exp: expire,
-    };
-    storage.setItem(this.__field, JSON.stringify(collection));
-    return this;
   }
 
   remove(k?: string) {
