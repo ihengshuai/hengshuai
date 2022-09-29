@@ -41,7 +41,11 @@ export class LocalStorage extends IStorage {
   set(k: any, v: any = null, expire: IExpire = IExpireType.NERVER) {
     if (!k) return this;
     const storage = this.getStorage();
-    if (typeof expire === 'number') {
+    if (
+      isNumber(expire) &&
+      expire !== IExpireType.NERVER &&
+      expire !== IExpireType.ALWAYS
+    ) {
       expire = +new Date() + expire;
     }
     if (!this.__field) {

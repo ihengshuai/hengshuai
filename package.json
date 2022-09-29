@@ -64,6 +64,7 @@
     "autoprefixer": "^10.4.7",
     "commitizen": "^4.2.4",
     "commitlint-config-cz": "^0.13.3",
+    "concurrently": "^7.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^6.9.0",
     "eslint": "^8.18.0",

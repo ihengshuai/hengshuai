@@ -3,9 +3,7 @@ import replace from 'rollup-plugin-replace';
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
-import serve from 'rollup-plugin-serve';
 import json from '@rollup/plugin-json';
-import livereload from 'rollup-plugin-livereload';
 import alias from '@rollup/plugin-alias';
 import pkg from '../package.json';
 import { cwd } from 'process';
@@ -74,18 +72,6 @@ export function getConfig(name) {
       exports: 'named',
     },
   };
-  if (process.env.TARGET) {
-    config.output.sourcemap = true;
-    config.plugins.push(
-      serve({
-        open: true,
-        openPage: '/example/index.html',
-        port: 8989,
-        contentBase: '',
-      }),
-      livereload(),
-    );
-  }
   return config;
 }
 

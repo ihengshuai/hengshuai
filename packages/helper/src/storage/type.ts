@@ -1,6 +1,6 @@
 export enum IExpireType {
-  NERVER = '-1',
-  ALWAYS = '1',
+  NERVER = -1,
+  ALWAYS = 1,
 }
 
 export type IExpire = IExpireType | number;
