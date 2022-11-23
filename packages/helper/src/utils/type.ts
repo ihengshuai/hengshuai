@@ -2,43 +2,43 @@ export function getTypeString(type: any): string {
   return Object.prototype.toString.call(type).slice(8, -1).toLowerCase();
 }
 
-export function isArray(type: any): boolean {
+export function isArray(type: any): type is [] {
   return getTypeString(type) === 'array';
 }
 
-export function isObject(type: any): boolean {
+export function isObject(type: any): type is object {
   return getTypeString(type) === 'object';
 }
 
-export function isString(type: any): boolean {
+export function isString(type: any): type is string {
   return getTypeString(type) === 'string';
 }
 
-export function isNumber(type: any): boolean {
+export function isNumber(type: any): type is number {
   return getTypeString(type) === 'number';
 }
 
-export function isBoolean(type: any): boolean {
+export function isBoolean(type: any): type is boolean {
   return getTypeString(type) === 'boolean';
 }
 
-export function isFunction(type: any): boolean {
+export function isFunction(type: any): type is Function {
   return getTypeString(type) === 'function';
 }
 
-export function isNull(type: any): boolean {
+export function isNull(type: any): type is null {
   return getTypeString(type) === 'null';
 }
 
-export function isUndefined(type: any): boolean {
+export function isUndefined(type: any): type is undefined {
   return getTypeString(type) === 'undefined';
 }
 
-export function isDate(type: any): boolean {
+export function isDate(type: any): type is Date {
   return getTypeString(type) === 'date';
 }
 
-export function isRegExp(type: any): boolean {
+export function isRegExp(type: any): type is RegExp {
   return getTypeString(type) === 'regexp';
 }
 

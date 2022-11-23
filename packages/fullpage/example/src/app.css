@@ -1,0 +1,14 @@
+.slide-item:nth-of-type(1) {
+  background: blue;
+}
+.slide-item:nth-of-type(2) {
+  background: red;
+}
+.slide-item:nth-of-type(3) {
+  background: green;
+}
+
+.slide-item:nth-of-type(4) {
+  background: orange;
+}
+
