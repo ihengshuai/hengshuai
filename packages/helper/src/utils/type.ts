@@ -94,7 +94,7 @@ export function isExpectType(type: any, expectType: string): boolean {
   return getTypeString(type) === expectType;
 }
 
-export function isEmpty(type: any, strict?: boolean): boolean {
+export function isEmpty(type: any, strict = true): boolean {
   return type === undefined || type === null || strict ? type === '' : false;
 }
 
