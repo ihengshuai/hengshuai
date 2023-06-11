@@ -1,4 +1,4 @@
-import { hasProperty, isEmtry, isNumber } from '@/utils';
+import { hasProperty, isEmpty, isNumber } from '@/utils';
 import { IExpire, IField, IExpireType, IStorage, STORAGE_TYPE } from './type';
 
 type StorageRecord = Record<string, IField | Record<string, IField>>;
@@ -117,7 +117,7 @@ export class LocalStorage extends IStorage {
   }
 
   private isExpire(exp: IExpire) {
-    if (isEmtry(exp)) return false;
+    if (isEmpty(exp)) return false;
     if (exp === IExpireType.NERVER) return false;
     if (exp === IExpireType.ALWAYS) return true;
     if (!isNumber(exp)) return true;

@@ -24,8 +24,8 @@ import {
   isDataView,
   isExpectType,
   isSameType,
-  isEmtryObject,
-  isEmtry,
+  isEmptyObject,
+  isEmpty,
   getClassType,
   getTypeString,
   hasProperty,
@@ -146,13 +146,13 @@ describe('type util test', () => {
   });
 
   test('test emtry methods', () => {
-    expect(isEmtryObject({})).toBeTruthy();
-    expect(isEmtryObject({ name: 'ming' })).toBeFalsy();
-    expect(isEmtry(null)).toBeTruthy();
-    expect(isEmtry(undefined)).toBeTruthy();
-    expect(isEmtry('')).toBeTruthy();
-    expect(isEmtry('xxx')).toBeFalsy();
-    expect(isEmtry(true)).toBeFalsy();
+    expect(isEmptyObject({})).toBeTruthy();
+    expect(isEmptyObject({ name: 'ming' })).toBeFalsy();
+    expect(isEmpty(null)).toBeTruthy();
+    expect(isEmpty(undefined)).toBeTruthy();
+    expect(isEmpty('')).toBeTruthy();
+    expect(isEmpty('xxx')).toBeFalsy();
+    expect(isEmpty(true)).toBeFalsy();
   });
 
   test('test getClassType method', () => {

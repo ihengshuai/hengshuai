@@ -73,7 +73,7 @@ class ServiceEntry {
   }
 
   protected createService(): any {
-    const ctor: any = this._serviceType;
+    const ctor = this._serviceType as FunctionConstructor;
     return ctor ? new ctor() : null;
   }
 }

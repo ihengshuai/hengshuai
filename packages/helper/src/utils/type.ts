@@ -94,11 +94,11 @@ export function isExpectType(type: any, expectType: string): boolean {
   return getTypeString(type) === expectType;
 }
 
-export function isEmtry(type: any): boolean {
-  return type === undefined || type === null || type === '';
+export function isEmpty(type: any, strict?: boolean): boolean {
+  return type === undefined || type === null || strict ? type === '' : false;
 }
 
-export function isEmtryObject(type: any): boolean {
+export function isEmptyObject(type: any): boolean {
   return isObject(type) && Object.keys(type).length === 0;
 }
 
