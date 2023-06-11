@@ -95,7 +95,7 @@ export function isExpectType(type: any, expectType: string): boolean {
 }
 
 export function isEmpty(type: any, strict = true): boolean {
-  return type === undefined || type === null || strict ? type === '' : false;
+  return type === undefined || type === null || (strict ? type === '' : false);
 }
 
 export function isEmptyObject(type: any): boolean {
