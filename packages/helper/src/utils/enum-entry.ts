@@ -1,6 +1,6 @@
 export default class EnumEntry<T = any> {
   public readonly name: string;
-  public readonly value: number;
+  public readonly value: number | string;
   public readonly alias: string;
   public readonly description: string;
   public readonly field: string;
@@ -8,7 +8,7 @@ export default class EnumEntry<T = any> {
 
   public constructor(
     name: string,
-    value: number,
+    value: number | string,
     alias?: string,
     description?: string,
     field?: string,

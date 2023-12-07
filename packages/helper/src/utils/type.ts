@@ -44,16 +44,19 @@ export function isRegExp(type: any): type is RegExp {
   return getTypeString(type) === 'regexp';
 }
 
-export function isError(type: any): boolean {
+export function isError(type: any): type is Error {
   return getTypeString(type) === 'error';
 }
 
-export function isSymbol(type: any): boolean {
+export function isSymbol(type: any): type is Symbol {
   return getTypeString(type) === 'symbol';
 }
 
-export function isPromise(type: any): boolean {
-  return getTypeString(type) === 'promise';
+export function isPromise<T = any>(type: any): type is Promise<T> {
+  return (
+    (type && typeof type.then === 'function') ||
+    getTypeString(type) === 'promise'
+  );
 }
 
 export function isInstanceOf(type: any, instance: any): boolean {
@@ -64,27 +67,27 @@ export function isClass(type: any): boolean {
   return type.prototype && type.prototype.constructor === type;
 }
 
-export function isMap(type: any): boolean {
+export function isMap<T = any, V = any>(type: any): type is Map<T, V> {
   return getTypeString(type) === 'map';
 }
 
-export function isSet(type: any): boolean {
+export function isSet<T = any>(type: any): type is Set<T> {
   return getTypeString(type) === 'set';
 }
 
-export function isWeakMap(type: any): boolean {
+export function isWeakMap(type: any): type is WeakMap<any, any> {
   return getTypeString(type) === 'weakmap';
 }
 
-export function isWeakSet(type: any): boolean {
+export function isWeakSet(type: any): type is WeakSet<any> {
   return getTypeString(type) === 'weakset';
 }
 
-export function isArrayBuffer(type: any): boolean {
+export function isArrayBuffer(type: any): type is ArrayBuffer {
   return getTypeString(type) === 'arraybuffer';
 }
 
-export function isDataView(type: any): boolean {
+export function isDataView(type: any): type is DataView {
   return getTypeString(type) === 'dataview';
 }
 
