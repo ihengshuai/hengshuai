@@ -1,3 +1,5 @@
+const _metadatas = new Map<any, any>();
+
 export function getTypeString(type: any): string {
   return Object.prototype.toString.call(type).slice(8, -1).toLowerCase();
 }
@@ -123,4 +125,13 @@ export function getClassType(type: any): Function | null | undefined {
 export function hasProperty(target: any, k: any) {
   if (!isObject(target)) return false;
   return Object.prototype.hasOwnProperty.call(target, k);
+}
+
+export function setMetadata(type: any, metadata: any): void {
+  if (!type || !metadata) throw new Error();
+  _metadatas.set(type, metadata);
+}
+
+export function getMetadata(type: any): any {
+  return _metadatas.get(type) || null;
 }
