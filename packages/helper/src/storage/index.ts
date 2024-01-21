@@ -26,4 +26,4 @@ export class StorageManager {
   }
 }
 
-window.store = StorageManager;
+window && (window.store = StorageManager);

@@ -1,10 +1,10 @@
 {
   "name": "@hengshuai/helper",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A repository for tools to assist in development",
   "unpkg": "dist/index.umd.js",
   "jsdelivr": "dist/index.umd.js",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.es.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "files": [
