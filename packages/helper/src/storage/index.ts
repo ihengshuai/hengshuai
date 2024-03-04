@@ -25,5 +25,3 @@ export class StorageManager {
     return indexedDB;
   }
 }
-
-window && (window.store = StorageManager);
